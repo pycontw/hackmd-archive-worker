@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+loguru = "*"
+typer = "*"
+pydantic = {extras = ["dotenv"], version = "*"}
+pyyaml = "*"
+
+[dev-packages]
+mypy = "*"
+pylint = "*"
+isort = "*"
+black = "*"
+invoke = "*"
+flake8 = "*"
+pytest = "*"
+types-pyyaml = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+sync_all="python3 app/main.py sync_all"
+lint = "inv lint"
+reformat = "inv reformat"
+
+[pipenv]
+allow_prereleases = true

@@ -1,0 +1,20 @@
+# Archive notes according to the tag name of the note,
+# the script will detect the tag name and put the note to
+# corresponding position described in this yaml file
+
+- 2021-organize:
+    #TODO: Complete the mapping of tags to the output folder.
+    path: build/2021-organize
+    subdirs:
+      - program:
+          path: build/2021-organize/program
+      - 2021-web:
+          path: build/2021-organize/2021-web
+      - 2021-marketing:
+          path: build/2021-organize/2021-marketing
+      - 2021-venue:
+          path: build/2021-organize/2021-venue
+      - 2021-design:
+          path: build/2021-organize/2021-design
+      - 2021-dev-infra:
+          path: build/2021-organize/2021-dev-infra
