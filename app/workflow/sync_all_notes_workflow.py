@@ -2,6 +2,7 @@
 Implementation of the workflow for syncing all notes
 """
 
+from handler.meilisearch_handler import MeilisearchHandler
 from workflow.base import BaseWorkflow
 
 
@@ -18,3 +19,7 @@ class SyncAllNotesWorkflow(BaseWorkflow):
 
     def upload(self):
         """Upload notes to the GitHub Repository"""
+
+    def build_index(self):
+        """Build index for archived notes"""
+        handler = MeilisearchHandler()

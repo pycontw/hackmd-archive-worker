@@ -1,5 +1,6 @@
 """Base workflow"""
 from pathlib import Path
+from typing import Optional, Any, Dict
 
 import yaml
 from loguru import logger
@@ -10,8 +11,9 @@ class BaseWorkflow:  # pylint: disable=too-few-public-methods
 
     def __init__(self, setting_path: Path):
         logger.info("Initializing {}", self.__class__.__name__)
-        self.setting_path = setting_path
-        self.directory_hierarchy_setting = None
+        self.setting_path: Path = setting_path
+        self.directory_hierarchy_setting: Optional[Dict[str, Any]] = None
+        self.output_path: Optional[Path] = None
 
     def load_output_setting(self):
         """Load configuration"""
@@ -19,6 +21,8 @@ class BaseWorkflow:  # pylint: disable=too-few-public-methods
             self.directory_hierarchy_setting = yaml.load(
                 setting_file, Loader=yaml.CLoader
             )
+            if self.directory_hierarchy_setting:
+                self.output_path = Path(self.directory_hierarchy_setting["output_dir"])
             logger.debug("Loaded output setting: {}", self.directory_hierarchy_setting)
 
     def download_notes(self):  # pylint: disable=no-self-use
@@ -33,10 +37,16 @@ class BaseWorkflow:  # pylint: disable=too-few-public-methods
         """Upload notes to the destination for archiving"""
         return NotImplementedError
 
-    def execute(self):  # pylint: disable=no-self-use
+    def build_index(self):  # pylint: disable=no-self-use
+        """Build index for archived notes"""
+        return NotImplementedError
+
+    def execute(self, enable_index: bool = False):  # pylint: disable=no-self-use
         """Execute workflow"""
         logger.info("Executing {}", self.__class__.__name__)
         self.load_output_setting()
         self.download_notes()
         self.classify_notes()
         self.upload()
+        if enable_index:
+            self.build_index()
