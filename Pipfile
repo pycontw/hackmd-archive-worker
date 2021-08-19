@@ -24,7 +24,7 @@ types-pyyaml = "*"
 python_version = "3.8"
 
 [scripts]
-sync_all="python3 app/main.py sync_all_notes"
+sync_all_notes="python3 app/main.py sync_all_notes"
 build_index="python3 app/main.py build_index"
 lint = "inv lint"
 reformat = "inv reformat"

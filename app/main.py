@@ -1,5 +1,7 @@
 """Main module for running app"""
 from enum import Enum
+import time
+from datetime import timedelta
 
 import typer
 from config import config
@@ -9,10 +11,18 @@ from workflow.sync_all_notes_workflow import SyncAllNotesWorkflow
 
 def sync_all_hackmd_notes(enable_index: bool = False):
     """Sync all hackmd notes to github"""
-    logger.info("Start to sync all hackmd notes to github")
-    logger.debug("Loading configs {}", config)
-    workflow = SyncAllNotesWorkflow(config.directory_hierarchy_settings_path)
-    workflow.execute(enable_index=enable_index)
+    while True:
+        try:
+            logger.info("Start to sync all hackmd notes to github")
+            logger.debug("Loading configs {}", config)
+            workflow = SyncAllNotesWorkflow(config.directory_hierarchy_settings_path)
+            workflow.execute(enable_index=enable_index)
+        except KeyboardInterrupt:
+            logger.error("Keyboard interrupt")
+            raise
+        except Exception:  # pylint: disable=broad-except
+            logger.exception("Exception in shopify worker")
+        time.sleep(timedelta(days=1).total_seconds())
 
 
 def build_hackmd_index():
