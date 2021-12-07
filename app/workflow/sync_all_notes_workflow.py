@@ -23,3 +23,7 @@ class SyncAllNotesWorkflow(BaseWorkflow):
     def build_index(self):
         """Build index for archived notes"""
         handler = MeilisearchHandler()
+        handler.create_index("hackmd")
+
+    def index_notes(self):
+        """Index the notes into Meilisearch"""
