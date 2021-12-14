@@ -1,6 +1,9 @@
 """
 Handler for handling meilisearch operations
 """
+import os
+import glob
+from hashlib import sha256
 
 from dataclasses import dataclass
 from typing import Optional
@@ -28,3 +31,19 @@ class MeilisearchHandler:
     def create_index(self, index_name: str) -> Index:
         """Invoke client to create index"""
         return self.client.index(uid=index_name)
+
+    def index_notes(self):
+        documents = []
+        index = self.client.index("hackmd")
+        filepaths = glob.glob('build/*.md', recursive=True)
+        for filepath in filepaths:
+            filename = os.path.basename(filepath)
+            hash = sha256()
+            hash.update(filepath.encode())
+            documents.append({
+                "id": hash.hexdigest(),
+                "tags": [],
+                # discard '.md' suffix
+                "title": filename[:-3]
+            })
+        index.add_documents(documents)
