@@ -9,3 +9,10 @@ The detailed working flow is as follows:
 2. For each downloaded document, parse its tags and move it to the current directory following the definition in `directory_hierarchy.yaml`.
 3. After arranging the documents, push the documents to the new branch for archiving.
 4. Another script will handle create/update the index of these documents and made them searchable leveraged by [MeiliSearch](https://www.meilisearch.com/) engine.
+
+## Usage
+
+* Index notes
+```
+python3 app/main.py index_notes
+```
