@@ -49,3 +49,16 @@ class MeilisearchHandler:
                     "content": open_file.read()
                 })
         index.add_documents(documents)
+        index.update_settings({
+            "searchableAttributes": [
+                "title",
+                "content"
+            ]
+        })
+        # Only display title
+        # Displaying content is not readable and has large performance impact after testing
+        index.update_settings({
+            "displayedAttributes": [
+                "title"
+            ]
+        })
