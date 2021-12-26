@@ -2,7 +2,7 @@
 Handler for handling meilisearch operations
 """
 import os
-import glob
+from pathlib import Path
 from hashlib import sha256
 
 from dataclasses import dataclass
@@ -42,17 +42,14 @@ class MeilisearchHandler:
         """
         documents = []
         index = self.client.index(index_name)
-        filepaths = glob.glob(parse_path, recursive=True)
-        for filepath in filepaths:
-            filename = os.path.basename(filepath)
+        for filepath in list(Path().glob(parse_path)):
             hash = sha256()
-            hash.update(filepath.encode())
+            hash.update(str(filepath).encode())
             with open(filepath, "r") as open_file:
                 documents.append({
                     "id": hash.hexdigest(),
                     "tags": [],
-                    # discard '.md' suffix
-                    "title": filename[:-3],
+                    "title": filepath.stem,
                     "content": open_file.read()
                 })
         index.add_documents(documents)

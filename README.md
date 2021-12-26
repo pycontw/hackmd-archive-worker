@@ -14,5 +14,5 @@ The detailed working flow is as follows:
 
 * Index notes
 ```
-python3 app/main.py index_notes
+python3 app/main.py build_index
 ```
