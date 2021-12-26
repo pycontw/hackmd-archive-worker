@@ -28,4 +28,4 @@ class SyncAllNotesWorkflow(BaseWorkflow):
     def index_notes(self):
         """Index the notes into Meilisearch"""
         handler = MeilisearchHandler()
-        handler.index_notes("hackmd")
+        handler.index_notes("build/*.md", "hackmd")

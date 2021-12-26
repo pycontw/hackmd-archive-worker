@@ -32,10 +32,17 @@ class MeilisearchHandler:
         """Invoke client to create index"""
         return self.client.index(uid=index_name)
 
-    def index_notes(self, index_name: str):
+    def index_notes(self, parse_path: str, index_name: str):
+        """
+            Indexing notes to Meilisearch
+
+            Parameters:
+                parse_path: Note storage path for glob parsing
+                index_name: Index for document storage
+        """
         documents = []
         index = self.client.index(index_name)
-        filepaths = glob.glob("build/*.md", recursive=True)
+        filepaths = glob.glob(parse_path, recursive=True)
         for filepath in filepaths:
             filename = os.path.basename(filepath)
             hash = sha256()
