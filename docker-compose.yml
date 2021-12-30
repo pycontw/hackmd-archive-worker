@@ -9,7 +9,7 @@ services:
     depends_on:
       - meilisearch
   meilisearch:
-    image: getmeili/meilisearch
+    image: getmeili/meilisearch:v0.22.0
     command: ./meilisearch --master-key=masterKey --no-analytics=true
     ports:
       - "7700:7700"

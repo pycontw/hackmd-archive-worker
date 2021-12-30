@@ -38,7 +38,11 @@ class BaseWorkflow:  # pylint: disable=too-few-public-methods
         return NotImplementedError
 
     def build_index(self):  # pylint: disable=no-self-use
-        """Build index for archived notes"""
+        """Create index for archived notes"""
+        return NotImplementedError
+
+    def index_notes(self): # pylint: disable=no-self-use
+        """Index the notes into Meilisearch"""
         return NotImplementedError
 
     def execute(self, enable_index: bool = False):  # pylint: disable=no-self-use

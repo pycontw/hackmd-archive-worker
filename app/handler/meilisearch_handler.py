@@ -1,6 +1,9 @@
 """
 Handler for handling meilisearch operations
 """
+import os
+from pathlib import Path
+from hashlib import sha256
 
 from dataclasses import dataclass
 from typing import Optional
@@ -28,3 +31,38 @@ class MeilisearchHandler:
     def create_index(self, index_name: str) -> Index:
         """Invoke client to create index"""
         return self.client.index(uid=index_name)
+
+    def index_notes(self, parse_path: str, index_name: str):
+        """
+            Indexing notes to Meilisearch
+
+            Parameters:
+                parse_path: Note storage path for glob parsing
+                index_name: Index for document storage
+        """
+        documents = []
+        index = self.client.index(index_name)
+        for filepath in list(Path().glob(parse_path)):
+            hash = sha256()
+            hash.update(str(filepath).encode())
+            with open(filepath, "r") as open_file:
+                documents.append({
+                    "id": hash.hexdigest(),
+                    "tags": [],
+                    "title": filepath.stem,
+                    "content": open_file.read()
+                })
+        index.add_documents(documents)
+        index.update_settings({
+            "searchableAttributes": [
+                "title",
+                "content"
+            ]
+        })
+        # Only display title
+        # Displaying content is not readable and has large performance impact after testing
+        index.update_settings({
+            "displayedAttributes": [
+                "title"
+            ]
+        })
