@@ -13,6 +13,8 @@ class SyncAllNotesWorkflow(BaseWorkflow):
 
     def download_notes(self):
         """Download notes"""
+        handler = MeilisearchHandler()
+        handler.download_notes("directory_hierarchy.yaml")
 
     def classify_notes(self):
         """Classify notes into correct folder position"""

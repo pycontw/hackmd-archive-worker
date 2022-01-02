@@ -15,6 +15,8 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
     MEILISEARCH_HOST: Optional[str] = "http://meilisearch"
     MEILISEARCH_PORT: Optional[int] = 7700
     MEILISEARCH_MASTER_KEY: Optional[str] = None
+    HACKMD_URL: Optional[str] = "https://hackmd.io/team/pycontw/exportAllNotes"
+    HACKMD_COOKIE: Optional[str] = ""
 
     class Config:  # pylint: disable=too-few-public-methods
         """Settings Config"""
