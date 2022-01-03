@@ -5,7 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./app:/app
+      - ./app:/hackmd-archive/app
+      - ./build:/hackmd-archive/app/build
     depends_on:
       - meilisearch
   meilisearch:
