@@ -1,6 +1,7 @@
 """
 Implementation of the workflow for syncing all notes
 """
+from pathlib import Path
 
 from handler.meilisearch_handler import MeilisearchHandler
 from workflow.base import BaseWorkflow
@@ -10,6 +11,10 @@ class SyncAllNotesWorkflow(BaseWorkflow):
     """
     Workflow to sync all notes
     """
+    def __init__(self, setting_path: Path):
+        super().__init__(setting_path)
+        self.meilisearch_handler = MeilisearchHandler()
+
 
     def download_notes(self):
         """Download notes"""
@@ -24,10 +29,14 @@ class SyncAllNotesWorkflow(BaseWorkflow):
 
     def build_index(self):
         """Build index for archived notes"""
-        handler = MeilisearchHandler()
-        handler.create_index("hackmd")
+        self.meilisearch_handler.create_index("hackmd")
 
     def index_notes(self):
         """Index the notes into Meilisearch"""
-        handler = MeilisearchHandler()
-        handler.index_notes("build/*.md", "hackmd")
+        self.meilisearch_handler.index_notes(f"{self.output_path}/*.md", "hackmd")
+
+    def execute_hackmd_index(self):
+        """Execute hackmd indexing workflow"""
+        self.load_output_setting()
+        self.build_index()
+        self.index_notes()

@@ -10,7 +10,7 @@ from typing import Optional
 
 import shutil
 import requests
-import meilisearch
+from meilisearch.client import Client as MeilisearchClient
 from meilisearch.index import Index
 import yaml
 
@@ -25,11 +25,11 @@ class MeilisearchHandler:
 
     host: Optional[str] = config.MEILISEARCH_HOST
     port: Optional[int] = config.MEILISEARCH_PORT
-    master_key: Optional[str] = None
+    master_key: Optional[str] = config.MEILISEARCH_MASTER_KEY
 
     def __post_init__(self):
         self.meilisearch_url = f"{self.host}:{self.port}"
-        self.client = meilisearch.Client(self.meilisearch_url, self.master_key)
+        self.client = MeilisearchClient(self.meilisearch_url, self.master_key)
         self.yaml_config: dict = {}
         with open(config.directory_hierarchy_settings_path, "r") as stream:
             self.yaml_config = yaml.safe_load(stream)
@@ -58,16 +58,18 @@ class MeilisearchHandler:
         documents = []
         index = self.client.index(index_name)
         for filepath in list(Path().glob(parse_path)):
-            hash = sha256()
-            hash.update(str(filepath).encode())
+            hash_ = sha256()
+            hash_.update(str(filepath).encode())
             with open(filepath, "r") as open_file:
                 documents.append({
-                    "id": hash.hexdigest(),
-                    "tags": [],
+                    "id": hash_.hexdigest(),
+                    "tags": [], #TODO: Add tags information
                     "title": filepath.stem,
                     "content": open_file.read()
+                    #TODO: Add url link
                 })
         index.add_documents(documents)
+        #TODO Check if all documents is added
         index.update_settings({
             "searchableAttributes": [
                 "title",

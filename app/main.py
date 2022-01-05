@@ -30,9 +30,7 @@ def build_hackmd_index():
     logger.info("Start to build index")
     logger.debug("Loading configs {}", config)
     workflow = SyncAllNotesWorkflow(config.directory_hierarchy_settings_path)
-    workflow.download_notes()
-    workflow.build_index()
-    workflow.index_notes()
+    workflow.execute_hackmd_index()
 
 
 class TaskName(str, Enum):

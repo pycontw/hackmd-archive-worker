@@ -9,7 +9,7 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
     """Settings for app"""
 
     directory_hierarchy_settings_path: Path = (
-        Path(__file__).parent.parent / "directory_hierarchy.yaml"
+        Path(__file__).parent / "directory_hierarchy.yaml"
     )
 
     MEILISEARCH_HOST: Optional[str] = "http://meilisearch"
