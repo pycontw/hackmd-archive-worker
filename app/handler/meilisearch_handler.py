@@ -30,22 +30,20 @@ class MeilisearchHandler:
     def __post_init__(self):
         self.meilisearch_url = f"{self.host}:{self.port}"
         self.client = MeilisearchClient(self.meilisearch_url, self.master_key)
-        self.yaml_config: dict = {}
-        with open(config.directory_hierarchy_settings_path, "r") as stream:
-            self.yaml_config = yaml.safe_load(stream)
 
     def create_index(self, index_name: str) -> Index:
         """Invoke client to create index"""
         return self.client.index(uid=index_name)
 
-    def download_notes(self):
+    def download_notes(self, output_path: str):
+        """Download notess from Hackmd"""
         resp = requests.get(
             config.HACKMD_URL,
             cookies={"connect.sid": config.HACKMD_COOKIE}
         )
         with tempfile.NamedTemporaryFile('wb') as tmp:
             tmp.write(resp.content)
-            shutil.unpack_archive(tmp.name, self.yaml_config["output_dir"], "zip")
+            shutil.unpack_archive(tmp.name, output_path, "zip")
 
     def index_notes(self, parse_path: str, index_name: str):
         """
