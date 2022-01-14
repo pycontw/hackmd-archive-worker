@@ -1,14 +1,18 @@
 """
 Handler for handling meilisearch operations
 """
+import tempfile
 from pathlib import Path
 from hashlib import sha256
 
 from dataclasses import dataclass
 from typing import Optional
 
+import shutil
+import requests
 from meilisearch.client import Client as MeilisearchClient
 from meilisearch.index import Index
+import yaml
 
 from config import config
 
@@ -30,6 +34,16 @@ class MeilisearchHandler:
     def create_index(self, index_name: str) -> Index:
         """Invoke client to create index"""
         return self.client.index(uid=index_name)
+
+    def download_notes(self, output_path: str):
+        """Download notess from Hackmd"""
+        resp = requests.get(
+            config.HACKMD_URL,
+            cookies={"connect.sid": config.HACKMD_COOKIE}
+        )
+        with tempfile.NamedTemporaryFile('wb') as tmp:
+            tmp.write(resp.content)
+            shutil.unpack_archive(tmp.name, output_path, "zip")
 
     def index_notes(self, parse_path: str, index_name: str):
         """

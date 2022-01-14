@@ -15,9 +15,11 @@ class SyncAllNotesWorkflow(BaseWorkflow):
         super().__init__(setting_path)
         self.meilisearch_handler = MeilisearchHandler()
 
-
     def download_notes(self):
         """Download notes"""
+        handler = MeilisearchHandler()
+        self.load_output_setting()
+        handler.download_notes(self.output_path)
 
     def classify_notes(self):
         """Classify notes into correct folder position"""
