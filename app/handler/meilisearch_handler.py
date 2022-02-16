@@ -2,17 +2,17 @@
 Handler for handling meilisearch operations
 """
 import tempfile
+import os
 from pathlib import Path
 from hashlib import sha256
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 import shutil
 import requests
 from meilisearch.client import Client as MeilisearchClient
 from meilisearch.index import Index
-import yaml
 
 from config import config
 
@@ -81,3 +81,38 @@ class MeilisearchHandler:
                 "title"
             ]
         })
+
+    def classify_notes(self, output_dir: str, dir_settings: List[dict], default_dir: str):
+        """Classify Hackmd notes to related directories
+
+            Parameters:
+                output_dir: Hackmd notes output directory
+                dir_settings: Directory settings to construct directories
+                default_dir: Default directory for notes that can't be classified
+        """
+        # Construct directories and dictionary mapping
+        tag_mapping = {}
+        for dir_name, dir_setting in dir_settings.items():
+            os.makedirs(dir_setting["path"], exist_ok=True)
+            for subdir_name, subdir_setting in dir_setting["subdirs"].items():
+                os.makedirs(
+                    f"{dir_setting['path']}/{subdir_setting['path']}",
+                    exist_ok=True
+                )
+                tag_mapping[
+                    frozenset([dir_name, subdir_name])
+                ] = f"{dir_setting['path']}/{subdir_setting['path']}"
+        os.makedirs(default_dir, exist_ok=True)
+
+        # Find out all *.md
+        for filepath in list(Path().glob(f"{output_dir}/*.md")):
+
+            # TODO: get tag from markdown
+            file_tags = frozenset([])
+            # transform to set and sort to correct directory
+            for tag_set, tag_path in tag_mapping.keys():
+                if tag_set.is_subset(file_tags):
+                    os.rename(filepath, f"{tag_path}/{filepath.name}")
+                    continue
+            # Move to default folder
+            os.rename(filepath, f"{default_dir}/{filepath.name}")
