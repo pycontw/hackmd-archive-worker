@@ -7,7 +7,7 @@ from pathlib import Path
 from hashlib import sha256
 
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import Optional, Dict, Union
 
 import shutil
 import requests
@@ -82,7 +82,7 @@ class MeilisearchHandler:
             ]
         })
 
-    def classify_notes(self, output_dir: str, dir_settings: List[dict], default_dir: str):
+    def classify_notes(self, output_dir: str, dir_settings: Dict[str, Union[str, Dict]], default_dir: str):
         """Classify Hackmd notes to related directories
 
             Parameters:

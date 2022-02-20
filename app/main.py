@@ -32,19 +32,12 @@ def build_hackmd_index():
     workflow = SyncAllNotesWorkflow(config.directory_hierarchy_settings_path)
     workflow.execute_hackmd_index()
 
-def classify_notes():
-    logger.info("Start to build index")
-    logger.debug("Loading configs {}", config)
-    workflow = SyncAllNotesWorkflow(config.directory_hierarchy_settings_path)
-    workflow.classify_notes()
-
 
 class TaskName(str, Enum):
     """All avaliable tasks"""
 
     sync_all_notes = "sync_all_notes"  # pylint: disable=invalid-name
     build_index = "build_index"  # pylint: disable=invalid-name
-    classify_notes = "classify_notes"  # pylint: disable=invalid-name
 
 
 def main(
@@ -55,7 +48,6 @@ def main(
     task_name_to_func = {
         "sync_all_notes": lambda: sync_all_hackmd_notes(enable_index),
         "build_index": build_hackmd_index,
-        "classify_notes": classify_notes,
     }
     task_name_to_func[task_name]()
 
