@@ -3,19 +3,21 @@
 # corresponding position described in this yaml file
 
 output_dir: build
-2021-organize:
-  #TODO: Complete the mapping of tags to the output folder.
-  path: build/2021-organize
-  subdirs:
-    - program:
-        path: build/2021-organize/program
-    - 2021-web:
-        path: build/2021-organize/2021-web
-    - 2021-marketing:
-        path: build/2021-organize/2021-marketing
-    - 2021-venue:
-        path: build/2021-organize/2021-venue
-    - 2021-design:
-        path: build/2021-organize/2021-design
-    - 2021-dev-infra:
-        path: build/2021-organize/2021-dev-infra
+unsorted_dir: build/unsorted
+classify_dirs:
+  2021-organize:
+    #TODO: Complete the mapping of tags to the output folder.
+    path: build/2021-organize
+    subdirs:
+      2021-program:
+        path: 2021-program
+      2021-web:
+        path: 2021-web
+      2021-marketing:
+        path: 2021-marketing
+      2021-venue:
+        path: 2021-venue
+      2021-design:
+        path: 2021-design
+      2021-dev-infra:
+        path: 2021-dev-infra

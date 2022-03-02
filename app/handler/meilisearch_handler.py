@@ -2,19 +2,26 @@
 Handler for handling meilisearch operations
 """
 import tempfile
+import os
 from pathlib import Path
 from hashlib import sha256
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Dict, Union
 
 import shutil
 import requests
 from meilisearch.client import Client as MeilisearchClient
 from meilisearch.index import Index
-import yaml
 
 from config import config
+
+
+@dataclass
+class OrgDirConfig():
+    name: str
+    path: str
+    subdirs: Optional[Dict[str, Dict]] = None
 
 
 @dataclass
@@ -81,3 +88,45 @@ class MeilisearchHandler:
                 "title"
             ]
         })
+
+    def classify_notes(self, output_dir: str, dir_settings: Dict[str, Union[str, Dict]], default_dir: str):
+        """Classify Hackmd notes to related directories
+
+            Parameters:
+                output_dir: Hackmd notes output directory
+                dir_settings: Directory settings to construct directories
+                default_dir: Default directory for notes that can't be classified
+        """
+        # Construct directories and dictionary mapping
+        tag_mapping = {}
+        for organization in dir_settings:
+            org_dir_config = OrgDirConfig(
+                name=organization,
+                path=dir_settings[organization]["path"],
+                subdirs=dir_settings[organization]["subdirs"],
+            )
+            os.makedirs(org_dir_config.path, exist_ok=True)
+            if org_dir_config.subdirs:
+                for subdir in org_dir_config.subdirs:
+                    subdir_config = OrgDirConfig(
+                        name=subdir,
+                        path=f'{org_dir_config.path}/{org_dir_config.subdirs[subdir]["path"]}',
+                    )
+                    os.makedirs(subdir_config.path, exist_ok=True)
+                    tag_mapping[
+                        frozenset([org_dir_config.name, subdir])
+                    ] = f"{org_dir_config.path}/{org_dir_config.subdirs[subdir]['path']}"
+        os.makedirs(default_dir, exist_ok=True)
+
+        # Find out all *.md
+        for filepath in list(Path().glob(f"{output_dir}/*.md")):
+
+            # TODO: get tag from markdown
+            file_tags = frozenset([])
+            # transform to set and sort to correct directory
+            for tag_set, tag_path in tag_mapping.items():
+                if tag_set.issubset(file_tags):
+                    os.rename(filepath, f"{tag_path}/{filepath.name}")
+                    continue
+            # Move to default folder
+            os.rename(filepath, f"{default_dir}/{filepath.name}")

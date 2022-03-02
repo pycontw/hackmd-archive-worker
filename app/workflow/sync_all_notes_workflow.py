@@ -17,12 +17,17 @@ class SyncAllNotesWorkflow(BaseWorkflow):
 
     def download_notes(self):
         """Download notes"""
-        handler = MeilisearchHandler()
         self.load_output_setting()
-        handler.download_notes(self.output_path)
+        self.meilisearch_handler.download_notes(self.output_path)
 
     def classify_notes(self):
         """Classify notes into correct folder position"""
+        self.load_output_setting()
+        self.meilisearch_handler.classify_notes(
+            self.output_path,
+            self.directory_hierarchy_setting["classify_dirs"],
+            self.directory_hierarchy_setting["unsorted_dir"]
+        )
 
     def upload(self):
         """Upload notes to the GitHub Repository"""
