@@ -18,6 +18,13 @@ from config import config
 
 
 @dataclass
+class OrgDirConfig():
+    name: str
+    path: str
+    subdirs: Optional[Dict[str, Dict]] = None
+
+
+@dataclass
 class MeilisearchHandler:
     """
     Class for handling meilisearch operations
@@ -92,16 +99,23 @@ class MeilisearchHandler:
         """
         # Construct directories and dictionary mapping
         tag_mapping = {}
-        for dir_name, dir_setting in dir_settings.items():
-            os.makedirs(dir_setting["path"], exist_ok=True)
-            for subdir_name, subdir_setting in dir_setting["subdirs"].items():
-                os.makedirs(
-                    f"{dir_setting['path']}/{subdir_setting['path']}",
-                    exist_ok=True
-                )
-                tag_mapping[
-                    frozenset([dir_name, subdir_name])
-                ] = f"{dir_setting['path']}/{subdir_setting['path']}"
+        for organization in dir_settings:
+            org_dir_config = OrgDirConfig(
+                name=organization,
+                path=dir_settings[organization]["path"],
+                subdirs=dir_settings[organization]["subdirs"],
+            )
+            os.makedirs(org_dir_config.path, exist_ok=True)
+            if org_dir_config.subdirs:
+                for subdir in org_dir_config.subdirs:
+                    subdir_config = OrgDirConfig(
+                        name=subdir,
+                        path=f'{org_dir_config.path}/{org_dir_config.subdirs[subdir]["path"]}',
+                    )
+                    os.makedirs(subdir_config.path, exist_ok=True)
+                    tag_mapping[
+                        frozenset([org_dir_config.name, subdir])
+                    ] = f"{org_dir_config.path}/{org_dir_config.subdirs[subdir]['path']}"
         os.makedirs(default_dir, exist_ok=True)
 
         # Find out all *.md
@@ -110,8 +124,8 @@ class MeilisearchHandler:
             # TODO: get tag from markdown
             file_tags = frozenset([])
             # transform to set and sort to correct directory
-            for tag_set, tag_path in tag_mapping.keys():
-                if tag_set.is_subset(file_tags):
+            for tag_set, tag_path in tag_mapping.items():
+                if tag_set.issubset(file_tags):
                     os.rename(filepath, f"{tag_path}/{filepath.name}")
                     continue
             # Move to default folder
