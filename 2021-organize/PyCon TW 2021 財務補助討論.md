@@ -1,0 +1,240 @@
+---
+tags: 2021-organize, 2021-finance
+---
+
+🔙 Back to [歷年 PyCon TW Organizing 共筆](/ryPr7SFyP/%2FHM5mHCFKQCu7-W5ea8ITcw%3Fview)
+🔙 Back to [PyCon TW 2021 Organizing 共筆](/Wb9vQrfJQk-5tPoPR23hwA)
+
+# PyCon TW 2021 財務補助討論
+
+FA概況：https://discord.com/channels/752904426057892052/755828862054695125/853518656738164746
+
+
+# 一. 流程
+
+## 2020年問卷
+
+[PyCon Taiwan 2020 Financial Aid Application](https://docs.google.com/forms/d/1PcHCxoHIQu5vo367L9sN6bGnbcNdqdlGYTA3COCLA3A/edit)
+
+* 需設定：
+    * [ ]  表單自動回覆申請者填寫之內容
+    * [ ]  表單自動關閉
+## 2021問卷
+
+[PyCon Taiwan 2021 Financial Aid Applicayion](https://forms.gle/bbZr5iduy16YcSuCA)
+
+## 2021問卷[for SITCON camp]
+[SITCON Camp] PyCon Taiwan 2021 Financial Aid Application :製作中
+
+
+
+
+
+
+## 申請狀態分類
+
+1. 已收到申請
+2. 審核中
+3. 已聯繫申請者
+4. 已收到申請者回覆 
+    1. (取消申請)
+    2. (需要補件)
+    3. (接受補助)
+5. 已於售票前再次通知 所有申請者
+6. 已收到報帳相關資料
+    4. 交通票卷
+    5. 住宿證明
+7. 已退費 或 匯款給申請者
+    6. 票價退費
+    7. 住宿費
+8. 已銷案
+
+
+## 內部流程
+
+* [x] 貼文： 正式宣傳 FA
+    * 各大資訊社群
+    * 成大
+* [x] 信件通知
+* [x] 貼文：審核結果已全數通知
+
+## 時程
+* 開始時間： 4/8
+* 結束時間： 7/15
+
+## email  回覆範本
+* [2019 financial_aid email 範本](https://github.com/pycontw/mail_handler/blob/master/templates/financial_aid.j2)
+    * 成功
+    * 失敗
+
+
+# 二. 文件
+* 身分證明相關文件列表
+    * 學生證
+* 補助所需文件
+    * 住宿
+        * 原則上不補助自己出去外面住的，只問是否要大會統一安排住宿
+    * 交通
+        * 高鐵、火車、機票票根
+        * **請於 10/1 之前檢附交通票卷或購票證明，寄至 (10566) 臺北市松山區八德路四段 636 之 1 號  開放文化基金會 (PyConTW) 收，並註明個別單據金額、申請的總金額、姓名、email、電話、匯款銀行名稱與代碼、分行名稱與代碼、帳號、戶名。**
+    * 門票
+        * 如果已經購票要提供 KKTIX 編號
+* 2020 財務補助 總額
+    * NT$ 200,000
+    * 包含志工住宿以及交通
+    * 預算分配: 60% 本國、40% 外國
+        * PyCon TW 2020 的主要精神之一在於連結在地社群
+* 2020 財務補助支付方式
+    * 本國人： 通過者提供銀行帳戶，由財務組匯款
+    * 外國人： 現金支付
+
+# 三. 審核原則
+1. 補助採加分制
+2. 依據分數決定 票價減免
+
+## 補助方式
+* 門票
+    * 票價減免 （大學生）
+    * 全免（高中生以下）
+* 交通費
+    * 實報實銷
+* 住宿費
+    * 統一代訂
+
+**原則上優先補助門票**
+
+e.g., 申請者不符合門票補助（假設票價 NT$ 3,000），但預計補助交通費 3,000，這時候可以直接給予門票全免的補助 -> **用門票減少金流**
+
+## 加分項目
+
+* 工人
+    * 組長
+    * 組員
+    * 以往 PyCon TW 組長
+    * 以往 PyCon TW 組員
+* 講者
+    * 國外學生
+    * 國內學生
+    * 國外非學生
+    * 國內非學生
+* PyCon TW 2020 場內分享
+    * 分享類型
+        * Open Space
+        * 自由分享
+* 學生
+    * 地點
+        * 國外
+        * 國內
+            * 北部
+            * 南部
+    * 身份
+        * 高中生
+        * 大學生
+        * 研究所以上
+* 開源貢獻
+    * 活動 (e.g., SITCON, COSCUP, g0v, HITCON and etc.)
+        * 參加人數
+        * 舉辦次數
+    * Repo
+        * 身份
+            * 作者
+            * 維護者
+            * 貢獻者
+        * 下載量
+            * [https://pypistats.org/](https://pypistats.org/)
+        * 星星數
+        * commit 數
+* Ref:
+    * [2019 審核](https://docs.google.com/spreadsheets/d/1lQxx6qY4SELOQKQ-pQ1YSfvcsRqFkI8SKHzWK3T5KLc/edit#gid=0)
+    * [2017 審核](https://docs.google.com/spreadsheets/d/16CcjoZxfu9pNr-ruSmiySLfXIJMtE-V7biZG22np9cA/edit#gid=0)
+
+
+## 志工補助
+
+- 補助項目： 票務全免，交通費，住宿費
+
+- 補助原則
+    - 組長, 高貢獻度之組員, 長期社群夥伴可補助： (票務全免，交通費，住宿費) 三選二
+    - 一般貢獻之組員可補助： (票務全免，交通費，住宿費) 三選一
+    - 建議優先補助票務全免以減少行政成本
+
+
+# 四. 職責種類
+
+
+| 職稱 (Role) | 種類 | 業務 | 備註 |
+| ---------- | -------- | -------- | -------- |
+| 審核者 | 審核相關 | 審核申請者資訊 | |
+| 回覆者 | 審核相關 | 統一回覆 <br/> (1) 審核通過通知 <br/> (2) 審核未通過通知 <br/>(3) 活動前再次通知 <br/>改變 申請表 之 申請狀態
+| 補助金額確認者 | 財務相關 | 與贊助組 及 註冊組 協調 補助金額 | |
+| 補助證明收集者 | 財務相關 | 收集申請者 之 補助相關證明 <br/> (1) 交通票卷 </br> - 高鐵, 台鐵, 計程車 </br> - 機票購票證明 <br/> (2) 住宿證明</br></br> 改變 申請表 之 申請狀態 | |
+| 退款處理者 | 財務相關 | 與 財務組 取得 補助金額 <br/>核發 補助金額 給 申請者  <br/> 改變 申請表 之 申請狀態 | |
+| 財務組 報帳者 | 財務相關 | 與 財務組 處理 報帳 事宜 <br/> 改變 申請表 之 申請狀態 | |
+
+
+# 五. 分工
+
+
+| 姓名 | 職責 | 備註 |
+| --- | --- | --- |
+| | | |
+
+# 六. 異常處理紀錄
+
+若後續 有發生 文件未規範之 突發狀況 或 項目可紀錄於此
+
+- 申請表單
+    - 是多年志工可以備註說明下
+    - 是來自別的社群的可以說一下
+    - 要寫全名，不要只寫代號
+    - 實際貢獻了啥這點請填表者盡量寫多一點
+    - 真的無法判斷可以問總招群
+
+
+
+# 七. 備忘錄
+
+若活動改採 遠端 或  取消 之相關 FA 備案 與 處理程序
+
+# 八. Reference
+
+## 2018 通知信件
+
+```text
+Financial Aid 申請須知：
+
+* 時間：會議午餐時段 6 月 1 日～6 月 2 日 中午 12:00 至 13:00。
+* 地點：大會報到櫃台。
+* 申請機票補助請準備：
+    * 護照影本
+    * 電子機票
+    * 旅行社代收轉付收據
+    * 機票（登機證）正本
+    * 存摺影本（居住台灣者須攜帶，非居住台灣者以現金撥給）
+* 申請車票補助請準備：
+    * 請將下列文件於 6/10 之前寄送至「100 台北市八德路一段 94 號 4 樓  開放文化基金會」。
+        * 去、回程之大眾運輸交通工具，限台鐵、高鐵之票根或購票證明
+        * 帳戶存摺影本。
+* 交通補助依照提供之單據實報實銷，如單據 800 元，則最高只補助 800 元。
+* 補助款最高金額以委員會決議之金額為限。
+
+謝謝您的參與。
+
+Financial Aid Application: 
+
+
+* Time: Lunch time on conference (6/1, 6/2  12:00~13:00) 
+* Location: registeration counter.
+    * Air tickets aid application:
+        * A hardcopy of passport.
+        * Electronic Ticket (screenshots are acceptable.)
+        * Boarding pass.
+        * Airlines receipts which are including the amount of the ticket.
+    * Bus / Train tickets aid application:
+        * Please bring outward bus/train tickets.
+        * Please MUST mail return bus/train tickets to “4F., No.94, Sec. 1, Bade Rd., Zhongzheng Dist., Taipei City.” before 6/10.
+    * You’ll get financial aids with cash. (New Taiwan Dollars.)
+    
+```
+
+
