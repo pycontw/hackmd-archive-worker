@@ -2,7 +2,8 @@
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseSettings
+from loguru import logger
+from pydantic import AnyHttpUrl, BaseSettings, HttpUrl
 
 
 class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
@@ -12,11 +13,10 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
         Path(__file__).parent / "directory_hierarchy.yaml"
     )
 
-    MEILISEARCH_HOST: Optional[str] = "http://meilisearch"
-    MEILISEARCH_PORT: Optional[int] = 7700
+    MEILISEARCH_URL: AnyHttpUrl = "http://meilisearch:7700"
     MEILISEARCH_MASTER_KEY: Optional[str] = None
-    HACKMD_URL: Optional[str] = "https://hackmd.io/team/pycontw/exportAllNotes"
-    HACKMD_COOKIE: Optional[str] = ""
+    HACKMD_URL: HttpUrl = "https://hackmd.io/team/pycontw/exportAllNotes"
+    HACKMD_COOKIE: Optional[str] = None
 
     class Config:  # pylint: disable=too-few-public-methods
         """Settings Config"""
@@ -25,4 +25,7 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
         env_file_encoding = "utf-8"
 
 
+logger.info("Loading configs")
 config = Settings()
+logger.debug("Loaded configs {}", config)
+logger.info("Configs loaded successfully")

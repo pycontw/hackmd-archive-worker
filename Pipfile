@@ -5,23 +5,27 @@ name = "pypi"
 
 [packages]
 loguru = "==0.5.3"
-typer = "==0.3.2"
+typer = "==0.6.1"
+requests = "==2.28.1"
 pydantic = {extras = ["dotenv"], version = "==1.8.2"}
-pyyaml = "==5.4.1"
-meilisearch = "==0.15.1"
+pyyaml = "==6.0"
+meilisearch = "==0.19.1"
+markdown = "==3.4.1"
 
 [dev-packages]
 mypy = "==0.910"
 pylint = "==2.9.6"
-isort = "==5.9.3"
-black = "==21.7b0"
+isort = "==5.10.1"
+black = "==22.6.0"
 invoke = "==1.6.0"
 flake8 = "==3.9.2"
 pytest = "==6.2.4"
 types-pyyaml = "==5.4.6"
+types-requests = "==2.28.9"
+types-markdown = "==3.4.1"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
 
 [scripts]
 sync_all_notes="python3 app/main.py sync_all_notes"
